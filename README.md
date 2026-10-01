@@ -3,8 +3,6 @@
 <div align="center">
 
 <img src="static/img/logo_cs_transparent.png" alt="Code Sentinels Logo" width="170" />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<img src="static/img/image2.jpeg" alt="Smart India Hackathon 2026 Logo" width="220" />
 
 ### Standardized Acquisition, Deep Video Recovery, Tamper Detection & Cryptographic Custody for Surveillance Evidence
 
@@ -431,8 +429,6 @@ SIH_project/
 │   └── img/
 │       ├── logo_cs_transparent.png # Code Sentinels team logo (transparent)
 │       ├── logo_cs_icon.png        # Code Sentinels emblem badge
-│       ├── image1.png              # Smart India Hackathon logo
-│       ├── image2.jpeg             # Smart India Hackathon 2026 logo
 │       ├── image3.png              # Code Sentinels high-res logo
 │       ├── image4.png              # Proposed Solution Architecture diagram
 │       ├── image5.png              # End-to-end Forensic Workflow flowchart
