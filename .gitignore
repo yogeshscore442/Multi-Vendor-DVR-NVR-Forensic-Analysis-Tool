@@ -1,0 +1,25 @@
+# Python byte-compiled / cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+env/
+ENV/
+.env
+
+# Temporary / Scratch scripts
+scratch_check.py
+
+# Local database file (generated automatically by seed_data.py or app.py)
+forensic_tool.db
+
+# OS generated files
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# IDE configuration
+.vscode/
+.idea/

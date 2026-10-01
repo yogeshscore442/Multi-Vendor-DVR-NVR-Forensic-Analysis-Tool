@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Multi-Vendor DVR/NVR Forensic Analysis Tool - Standardized Acquisition, Recovery, and Analysis of Surveillance Evidence. SIH 2026.">
+    <title>ForensicVault 2026 — Enterprise DVR/NVR Forensic Analysis Suite</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome 6 Pro Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body class="cyber-theme">
+    <!-- Interactive Background Particle Canvas -->
+    <canvas id="cyberBackground"></canvas>
+
+    <!-- Floating Ambient Light Orbs -->
+    <div class="ambient-orb orb-1"></div>
+    <div class="ambient-orb orb-2"></div>
+    <div class="ambient-orb orb-3"></div>
+
+    <!-- Cyber Grid Overlay -->
+    <div class="cyber-grid-overlay"></div>
+
+    <!-- Main Application Wrapper -->
+    <div class="app-layout">
+        <!-- Mobile Backdrop Overlay -->
+        <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-container">
+                    <div class="brand-logo-ring">
+                        <img src="/static/img/logo_cs_icon.png" alt="Code Sentinels Logo" class="brand-logo-img">
+                        <span class="pulse-ring"></span>
+                    </div>
+                    <div class="brand-text">
+                        <h1 class="brand-title">Forensic<span>Vault</span></h1>
+                        <span class="brand-subtitle">Code Sentinels</span>
+                    </div>
+                </div>
+                <button class="sidebar-collapse-btn" id="sidebarToggle" title="Toggle Sidebar">
+                    <i class="fas fa-angles-left"></i>
+                </button>
+            </div>
+
+            <!-- Write-Blocker Status Shield in Sidebar -->
+            <div class="write-blocker-pill" id="writeBlockerStatus">
+                <span class="live-pulse-dot green"></span>
+                <div class="wb-text">
+                    <span class="wb-label">WRITE-BLOCKER</span>
+                    <span class="wb-state">ARMED &amp; VERIFIED</span>
+                </div>
+                <i class="fas fa-lock wb-icon"></i>
+            </div>
+
+            <nav class="nav-menu">
+                <div class="nav-group">
+                    <span class="nav-group-title">COMMAND CENTER</span>
+                    <a href="#dashboard" class="nav-link active" data-page="dashboard">
+                        <div class="nav-icon-wrapper"><i class="fas fa-chart-pie"></i></div>
+                        <span class="nav-label">Dashboard</span>
+                        <span class="nav-badge live">LIVE</span>
+                    </a>
+                    <a href="#cases" class="nav-link" data-page="cases">
+                        <div class="nav-icon-wrapper"><i class="fas fa-folder-open"></i></div>
+                        <span class="nav-label">Forensic Cases</span>
+                    </a>
+                    <a href="#evidence" class="nav-link" data-page="evidence">
+                        <div class="nav-icon-wrapper"><i class="fas fa-hard-drive"></i></div>
+                        <span class="nav-label">Evidence Imaging</span>
+                    </a>
+                </div>
+
+                <div class="nav-group">
+                    <span class="nav-group-title">DEEP FORENSICS</span>
+                    <a href="#analysis" class="nav-link" data-page="analysis">
+                        <div class="nav-icon-wrapper"><i class="fas fa-microchip"></i></div>
+                        <span class="nav-label">Video &amp; H.264 Carve</span>
+                    </a>
+                    <a href="#timeline" class="nav-link" data-page="timeline">
+                        <div class="nav-icon-wrapper"><i class="fas fa-timeline"></i></div>
+                        <span class="nav-label">Timeline Rebuild</span>
+                    </a>
+                    <a href="#tamper" class="nav-link" data-page="tamper">
+                        <div class="nav-icon-wrapper"><i class="fas fa-triangle-exclamation"></i></div>
+                        <span class="nav-label">Tamper Detection</span>
+                        <span class="nav-badge alert" id="sidebarTamperBadge">3</span>
+                    </a>
+                </div>
+
+                <div class="nav-group">
+                    <span class="nav-group-title">LEGAL &amp; INTEGRITY</span>
+                    <a href="#custody" class="nav-link" data-page="custody">
+                        <div class="nav-icon-wrapper"><i class="fas fa-link"></i></div>
+                        <span class="nav-label">Chain of Custody</span>
+                        <span class="nav-badge chain"><i class="fas fa-cube"></i></span>
+                    </a>
+                    <a href="#reports" class="nav-link" data-page="reports">
+                        <div class="nav-icon-wrapper"><i class="fas fa-file-shield"></i></div>
+                        <span class="nav-label">Court Reports (BSA)</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Workspace -->
+        <main class="main-workspace" id="mainWorkspace">
+            <!-- Top Cyber Header -->
+            <header class="cyber-topbar">
+                <div class="topbar-left">
+                    <button class="mobile-toggle" id="mobileMenuBtn">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="breadcrumb-trail" id="breadcrumbTrail">
+                        <span class="trail-root"><i class="fas fa-shield-halved"></i></span>
+                        <span class="trail-sep">/</span>
+                        <span class="trail-page" id="currentPageHeading">Dashboard</span>
+                    </div>
+                </div>
+
+                <!-- Forensic Live Stream Ticker in Topbar -->
+                <div class="topbar-ticker" id="topbarTicker">
+                    <span class="ticker-badge"><i class="fas fa-bolt"></i> AUDIT LEDGER</span>
+                    <span class="ticker-content" id="tickerContent">Initialising cryptographic verification stream...</span>
+                </div>
+
+                <div class="topbar-right">
+                    <!-- Light / Dark Theme Switcher -->
+                    <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle Light / Dark Mode">
+                        <i class="fas fa-sun" id="themeToggleIcon"></i>
+                        <span class="theme-text" id="themeToggleText">Light</span>
+                    </button>
+
+                    <!-- Quick Demo Seeder Button -->
+                    <button class="action-seed-btn" id="btnQuickSeed" title="Re-seed rich realistic forensic demonstration dataset">
+                        <i class="fas fa-wand-magic-sparkles"></i>
+                        <span>Demo Data</span>
+                    </button>
+
+                    <!-- Real-time Clock -->
+                    <div class="crypto-clock">
+                        <i class="far fa-clock"></i>
+                        <span id="liveTimeClock">00:00:00 UTC</span>
+                    </div>
+
+                    <!-- Examiner Profile -->
+                    <div class="examiner-chip">
+                        <div class="examiner-avatar">
+                            <i class="fas fa-user-secret"></i>
+                            <span class="avatar-status"></span>
+                        </div>
+                        <div class="examiner-details">
+                            <span class="ex-name">Insp. Rajesh Varma</span>
+                            <span class="ex-role">Lead Forensic Examiner</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dynamic Page Content Area -->
+            <div class="page-viewport" id="pageViewport">
+                <!-- Injected dynamically by app.js -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Universal Modal System -->
+    <div class="cyber-modal-overlay" id="modalOverlay">
+        <div class="cyber-modal-box" id="modalBox">
+            <div class="modal-corner c-tl"></div>
+            <div class="modal-corner c-tr"></div>
+            <div class="modal-corner c-bl"></div>
+            <div class="modal-corner c-br"></div>
+            
+            <div class="modal-head">
+                <div class="modal-title-wrap">
+                    <div class="modal-icon-badge" id="modalIconBadge"><i class="fas fa-shield"></i></div>
+                    <h3 id="modalTitle">Forensic Dialog</h3>
+                </div>
+                <button class="modal-dismiss" id="modalClose">&times;</button>
+            </div>
+            
+            <div class="modal-content-area" id="modalBody">
+                <!-- Content injected dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div class="cyber-toast-stack" id="toastContainer"></div>
+
+    <!-- Ultra High-Tech Cyber Loading Overlay -->
+    <div class="cyber-scanner-overlay" id="loadingOverlay">
+        <div class="scanner-core">
+            <div class="scanner-rings">
+                <div class="ring ring-outer"></div>
+                <div class="ring ring-middle"></div>
+                <div class="ring ring-inner"></div>
+                <div class="scanner-crosshair"></div>
+            </div>
+            <div class="scanner-info">
+                <div class="scanner-hud-tag">FORENSIC_ENGINE_PROCESSING</div>
+                <h4 id="loadingText">Executing Cryptographic SHA-256 Analysis...</h4>
+                <div class="scanner-bar-wrap">
+                    <div class="scanner-bar-fill"></div>
+                </div>
+                <span class="scanner-subtext">Hardware Read-Only Buffer Engaged • Zero Byte Modification Guaranteed</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Script -->
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
